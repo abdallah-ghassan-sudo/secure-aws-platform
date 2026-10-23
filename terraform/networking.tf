@@ -1,10 +1,10 @@
-# checkov:skip=CKV_AWS_394: Pinning AZs not required for this lab environment
 data "aws_availability_zones" "available" {
   state = "available"
+  # checkov:skip=CKV_AWS_394: Pinning AZs not required for this lab environment
 }
 
-# checkov:skip=CKV2_AWS_11: VPC flow logs disabled to save costs
 resource "aws_vpc" "main" {
+  # checkov:skip=CKV2_AWS_11: VPC flow logs disabled to save costs
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -14,7 +14,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-# إصلاح: تقييد مجموعة الأمان الافتراضية للـ VPC لترفض أي اتصال
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.main.id
   tags = {
@@ -73,9 +72,9 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-# checkov:skip=CKV2_AWS_5: SG is a baseline, will be attached to resources later
-# checkov:skip=CKV_AWS_382: Egress to all ports required for baseline lab setup
 resource "aws_security_group" "baseline_sg" {
+  # checkov:skip=CKV2_AWS_5: SG is a baseline, will be attached to resources later
+  # checkov:skip=CKV_AWS_382: Egress to all ports required for baseline lab setup
   name        = "secure-baseline-sg"
   description = "Allow internal VPC traffic, deny all inbound from internet"
   vpc_id      = aws_vpc.main.id

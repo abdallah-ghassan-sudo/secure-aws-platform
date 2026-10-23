@@ -1,6 +1,7 @@
-# checkov:skip=CKV_AWS_35: KMS encryption disabled to save costs
-# checkov:skip=CKV_AWS_252: SNS topic integration not required for this lab
 resource "aws_cloudtrail" "main_trail" {
+  # checkov:skip=CKV_AWS_35: KMS encryption disabled to save costs
+  # checkov:skip=CKV_AWS_252: SNS topic integration not required for this lab
+  # checkov:skip=CKV2_AWS_10: CloudWatch logs integration disabled to save costs
   name                          = "secure-baseline-trail"
   s3_bucket_name                = aws_s3_bucket.audit_logs.id
   include_global_service_events = true
