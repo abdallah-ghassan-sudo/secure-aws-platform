@@ -66,3 +66,27 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }
+resource "aws_security_group" "baseline_sg" {
+  name        = "secure-baseline-sg"
+  description = "Allow internal VPC traffic, deny all inbound from internet"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "Allow internal VPC traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "baseline-security-group"
+  }
+}
