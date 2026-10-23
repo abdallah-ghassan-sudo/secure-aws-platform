@@ -4,6 +4,8 @@ resource "aws_s3_bucket" "audit_logs" {
   # checkov:skip=CKV_AWS_18: Access logging disabled to save costs
   # checkov:skip=CKV2_AWS_62: Event notifications not required for audit logs
   # checkov:skip=CKV_AWS_144: Cross-region replication not required for lab
+  # checkov:skip=CKV_AWS_145: KMS encryption disabled to save costs (using AES256 instead)
+  # checkov:skip=CKV2_AWS_61: Lifecycle configuration not required for short-term lab
   bucket_prefix = "secure-audit-logs-"
   force_destroy = true 
 }
