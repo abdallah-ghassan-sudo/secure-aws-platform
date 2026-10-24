@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "audit_logs" {
   # checkov:skip=CKV_AWS_145: KMS encryption disabled to save costs (using AES256 instead)
   # checkov:skip=CKV2_AWS_61: Lifecycle configuration not required for short-term lab
   bucket_prefix = "secure-audit-logs-"
-  force_destroy = true 
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_versioning" "audit_logs_versioning" {
