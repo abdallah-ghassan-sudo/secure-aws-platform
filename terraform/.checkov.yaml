@@ -1,0 +1,8 @@
+framework:
+  - terraform
+skip-check:
+  - CKV_AWS_144 # Cross-region replication disabled to enforce single-region data residency (NCA-CSCC alignment)
+  - CKV_AWS_18  # S3 server access logging omitted on primary audit bucket to prevent recursive logging loops
+  - CKV2_AWS_62 # Real-time alerting is handled via CloudWatch Logs Metric Filters (alerts.tf) rather than S3 object events
+  - CKV_AWS_252 # Direct CloudTrail SNS delivery omitted to prevent log-delivery alert fatigue; SNS is triggered via CloudWatch Metric Alarms
+  - CKV_AWS_394 # Availability Zones are dynamically queried and bounded via slice(names, 0, var.az_count) for multi-region portability
